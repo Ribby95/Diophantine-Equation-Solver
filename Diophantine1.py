@@ -49,7 +49,7 @@ def slosher(coefficients,solution,answer):
     temp=dict(zip(coefficients,solution))
 
 def brute_force_recursive(coefficients,answer):
-    solution_set=[]
+    solution_list=[]
     limits=[math.floor(answer/a) for a in coefficients]
     base=[0 for a in coefficients]
     def update(original,index,bounds=limits):
@@ -62,8 +62,9 @@ def brute_force_recursive(coefficients,answer):
             return original
     for i in range(0,math.prod([x+1 for x in limits])):
         if sum([base[j]*coefficients[j] for j in range(0,len(coefficients))])==answer:
-            solution_set.append(base)
+            solution_list.append(base)
         base=update(base,0,limits)
-brute_force_recursive([3,5],18)
+    return solution_list
+print(brute_force_recursive([3,5],18))
 #print(B[1]*a+B[2]*b)
 #print(solver([a,b],c))
