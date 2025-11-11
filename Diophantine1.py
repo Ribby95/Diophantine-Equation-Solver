@@ -8,7 +8,7 @@ import math
 a=17
 b=12
 c=58
-def bezout(a,b):
+def bezout(a,b):#uses the euclidean algorithm to find x,y such that ax+yb=gcd(a,b)
     old_remainder=max(a,b)
     new_remainder=min(a,b)
 
@@ -41,7 +41,7 @@ def solver(coefficients,total):
         if both_positive(solution_x,solution_y):
             return (solution_x,solution_y)
 
-def slosher(coefficients,solution,total):
+def slosher(coefficients,solution,total):#this function moves between integer solutions
     if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=total:
         return "try again"
     temp=dict(zip(coefficients,solution))
