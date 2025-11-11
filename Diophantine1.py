@@ -28,10 +28,8 @@ def bezout(a,b):
 def both_positive(x,y):
     return x*abs(y)+abs(x)*y>0
 
-def frobenius(a,b):
-    return a*b-a-b
 
-def solver(coefficients,answer):
+def solver(coefficients,total):
     B=bezout(coefficients[0],coefficients[1])
     xnot=B[1]*c/B[0]
     ynot=B[2]*c/B[0]
@@ -43,28 +41,31 @@ def solver(coefficients,answer):
         if both_positive(solution_x,solution_y):
             return (solution_x,solution_y)
 
-def slosher(coefficients,solution,answer):
-    if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=answer:
+def slosher(coefficients,solution,total):
+    if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=total:
         return "try again"
     temp=dict(zip(coefficients,solution))
 
-def brute_force_recursive(coefficients,answer):
+def brute_force_recursive(coefficients,total):
     solution_list=[]
-    limits=[math.floor(answer/a) for a in coefficients]
-    base=[0 for a in coefficients]
+    limits=[math.floor(total/a) for a in coefficients]
     def update(original,index,bounds=limits):
-            if original[index]+1<=bounds[index]:
-                original[index]=original[index]+1
-            else:
-                original[index]=0
-                if index+1<len(original):
-                    update(original,index+1,bounds)
-            return original
+        new_list=original.copy()
+        if new_list[index]+1<=bounds[index]:
+            new_list[index]=new_list[index]+1
+        else:
+            new_list[index]=0
+            if index+1<len(original):
+                new_list=update(new_list,index+1,bounds)
+        return new_list
+    base=[0 for a in coefficients]
     for i in range(0,math.prod([x+1 for x in limits])):
-        if sum([base[j]*coefficients[j] for j in range(0,len(coefficients))])==answer:
+        if sum([base[j]*coefficients[j] for j in range(0,len(coefficients))])==total:
             solution_list.append(base)
         base=update(base,0,limits)
     return solution_list
-print(brute_force_recursive([3,5],18))
+
+def brute_force_mod(coefficients,total):
+    pass
 #print(B[1]*a+B[2]*b)
-#print(solver([a,b],c))
+print(brute_force_recursive([3,5,7],c))
