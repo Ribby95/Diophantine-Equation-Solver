@@ -66,6 +66,12 @@ def brute_force_recursive(coefficients,total):
     return solution_list
 
 def brute_force_mod(coefficients,total):
-    pass
+    solution_list=[]
+    limits=[math.floor(total/a) for a in coefficients]
+    for i in range(0,math.prod([x+1 for x in limits])):
+        attempt=[i//math.prod([x+1 for x in limits[:j]])%(limits[j]+1) for j in range(0,len(limits))]
+        if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
+            solution_list.append(attempt)   
+    return solution_list
 #print(B[1]*a+B[2]*b)
-print(brute_force_recursive([3,5,7],c))
+print(brute_force_mod([3,5,7],58))
