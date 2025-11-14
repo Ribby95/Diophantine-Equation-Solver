@@ -23,19 +23,20 @@ def bezout(a,b):#uses the euclidean algorithm to find x,y such that ax+yb=gcd(a,
         old_remainder,new_remainder=new_remainder,old_remainder-quotient*new_remainder
         old_first_coefficient,new_first_coefficient=new_first_coefficient,old_first_coefficient-quotient*new_first_coefficient
         old_second_coefficient,new_second_coefficient=new_second_coefficient,old_second_coefficient-quotient*new_second_coefficient
-    return (old_remainder,old_first_coefficient,old_second_coefficient,new_first_coefficient,new_second_coefficient) #GCD, 
+    return (old_remainder,old_first_coefficient,old_second_coefficient,new_first_coefficient,new_second_coefficient) #GCD,x,y,a/gcd,b/gcd
 
 def both_positive(x,y):
     return x*abs(y)+abs(x)*y>0
 
-
 def solver(coefficients,total):
     B=bezout(coefficients[0],coefficients[1])
-    xnot=B[1]*c/B[0]
-    ynot=B[2]*c/B[0]
+    xnot=max(B[1],B[2])*total/B[0]
+    ynot=min(B[1],B[2])*total/B[0]
     Upper_bound=xnot*B[0]/coefficients[1]
-    lower_bound=-ynot*B[0]/coefficients[0]
-    for m in range(math.floor(lower_bound),math.ceil(Upper_bound)):
+    Lower_bound=-ynot*B[0]/coefficients[0]
+    #print((Upper_bound,Lower_bound))
+    m=round(0.5*(Upper_bound+Lower_bound))
+    for m in range(math.floor(Lower_bound),math.ceil(Upper_bound)):
         solution_x=xnot+m*B[3]
         solution_y=ynot+m*B[4]
         if both_positive(solution_x,solution_y):
@@ -73,5 +74,8 @@ def brute_force_mod(coefficients,total):
         if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
             solution_list.append(attempt)   
     return solution_list
-#print(B[1]*a+B[2]*b)
-print(brute_force_mod([3,5,7],58))
+
+#print(brute_force_mod([3,5],18))
+print(bezout(3,5))
+#print(solver([a,b],c))
+print(solver([3,5],18))
