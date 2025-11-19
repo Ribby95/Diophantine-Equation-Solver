@@ -11,12 +11,12 @@ c=58
 def bezout(a,b):#uses the euclidean algorithm to find x,y such that ax+yb=gcd(a,b)
     old_remainder=max(a,b)
     new_remainder=min(a,b)
+    check=int(a==min(a,b))
+    old_first_coefficient=check
+    new_first_coefficient=1-check
 
-    old_first_coefficient=1
-    new_first_coefficient=0
-
-    old_second_coefficient=0
-    new_second_coefficient=1
+    old_second_coefficient=1-check
+    new_second_coefficient=check
 
     while new_remainder!=0:
         quotient=old_remainder//new_remainder
@@ -34,13 +34,11 @@ def solver(coefficients,total):
     ynot=min(B[1],B[2])*total/B[0]
     Upper_bound=xnot*B[0]/coefficients[1]
     Lower_bound=-ynot*B[0]/coefficients[0]
-    #print((Upper_bound,Lower_bound))
     m=round(0.5*(Upper_bound+Lower_bound))
-    for m in range(math.floor(Lower_bound),math.ceil(Upper_bound)):
-        solution_x=xnot+m*B[3]
-        solution_y=ynot+m*B[4]
-        if both_positive(solution_x,solution_y):
-            return (solution_x,solution_y)
+    solution_x=xnot+m*B[4]
+    solution_y=ynot+m*B[3]
+    return (solution_x,solution_y)
+    
 
 def slosher(coefficients,solution,total):#this function moves between integer solutions
     if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=total:
@@ -76,6 +74,6 @@ def brute_force_mod(coefficients,total):
     return solution_list
 
 #print(brute_force_mod([3,5],18))
-print(bezout(3,5))
-#print(solver([a,b],c))
+#print(bezout(3,5))
+print(solver([a,b],c))
 print(solver([3,5],18))
