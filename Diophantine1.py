@@ -39,6 +39,15 @@ def solver(coefficients,total):
     solution_y=ynot+m*B[3]
     return (solution_x,solution_y)
     
+def advanced_solver(coeficients,total):
+    cut=len(coeficients)//2
+    if cut==0:
+        return(solver(coeficients,total))
+    print([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])])
+    thing=solver([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])],total)
+    firstlist=advanced_solver(coeficients[:cut], thing[0]*math.gcd(*coeficients[:cut]))
+    secondlist=advanced_solver(coeficients[cut:], thing[1]*math.gcd(*coeficients[cut:]))
+    return (firstlist,secondlist)
 
 def slosher(coefficients,solution,total):#this function moves between integer solutions
     if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=total:
@@ -72,8 +81,3 @@ def brute_force_mod(coefficients,total):
         if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
             solution_list.append(attempt)   
     return solution_list
-
-#print(brute_force_mod([3,5],18))
-#print(bezout(3,5))
-print(solver([a,b],c))
-print(solver([3,5],18))
