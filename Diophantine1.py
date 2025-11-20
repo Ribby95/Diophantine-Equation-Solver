@@ -25,10 +25,12 @@ def both_positive(x,y):
     return x*abs(y)+abs(x)*y>0
 
 def solver(coefficients,total):
+    output=[None]*len(coefficients)
     if max(coefficients)%min(coefficients)==0:
         solution_x=total//max(coefficients)
-        solution_y=(total%max(coefficients))/min(coefficients)
-        return (solution_x,solution_y)
+        solution_y=int((total%max(coefficients))/min(coefficients))
+        output[coefficients.index(max(coefficients))],output[coefficients.index(min(coefficients))]=solution_x,solution_y
+        return output
     B=bezout(coefficients[0],coefficients[1])
     xnot=max(B[1],B[2])*total/B[0]
     ynot=min(B[1],B[2])*total/B[0]
@@ -37,7 +39,8 @@ def solver(coefficients,total):
     m=round(0.5*(Upper_bound+Lower_bound))
     solution_x=xnot+m*B[4]
     solution_y=ynot+m*B[3]
-    return (solution_x,solution_y)
+    output[coefficients.index(max(coefficients))],output[coefficients.index(min(coefficients))]=solution_x,solution_y
+    return output
     
 def advanced_solver(coeficients,total):
     cut=len(coeficients)//2
@@ -81,5 +84,3 @@ def brute_force_mod(coefficients,total):
         if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
             solution_list.append(attempt)   
     return solution_list
-
-print(solver([4,2],10))
