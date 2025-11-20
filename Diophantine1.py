@@ -28,6 +28,7 @@ def solver(coefficients,total):
     if max(coefficients)%min(coefficients)==0:
         solution_x=total//max(coefficients)
         solution_y=(total%max(coefficients))/min(coefficients)
+        return (solution_x,solution_y)
     B=bezout(coefficients[0],coefficients[1])
     xnot=max(B[1],B[2])*total/B[0]
     ynot=min(B[1],B[2])*total/B[0]
@@ -81,3 +82,4 @@ def brute_force_mod(coefficients,total):
             solution_list.append(attempt)   
     return solution_list
 
+print(solver([4,2],10))
