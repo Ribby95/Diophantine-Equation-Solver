@@ -26,9 +26,9 @@ def both_positive(x,y):
 
 def solver(coefficients,total):
     output=[None]*len(coefficients)
-    if max(coefficients)%min(coefficients)==0:
+    if max(coefficients)%min(coefficients)==0:#if one coefficient divides the other then regular division gives our solution
         solution_x=total//max(coefficients)
-        solution_y=int((total%max(coefficients))/min(coefficients))
+        solution_y=int((total%max(coefficients))/min(coefficients))#this is an integer based on our condition in the if statement
         output[coefficients.index(max(coefficients))],output[coefficients.index(min(coefficients))]=solution_x,solution_y
         return output
     B=bezout(coefficients[0],coefficients[1])
