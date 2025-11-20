@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Spyder Editor
 
-This is a temporary script file.
-"""
 import math
 a=17
 b=12
@@ -29,6 +25,9 @@ def both_positive(x,y):
     return x*abs(y)+abs(x)*y>0
 
 def solver(coefficients,total):
+    if max(coefficients)%min(coefficients)==0:
+        solution_x=total//max(coefficients)
+        solution_y=(total%max(coefficients))/min(coefficients)
     B=bezout(coefficients[0],coefficients[1])
     xnot=max(B[1],B[2])*total/B[0]
     ynot=min(B[1],B[2])*total/B[0]
@@ -81,3 +80,4 @@ def brute_force_mod(coefficients,total):
         if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
             solution_list.append(attempt)   
     return solution_list
+
