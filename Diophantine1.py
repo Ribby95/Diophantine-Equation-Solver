@@ -46,7 +46,7 @@ def advanced_solver(coeficients,total):
     cut=len(coeficients)//2
     if cut==0:
         return(solver(coeficients,total))
-    print([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])])
+    #print([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])])
     thing=solver([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])],total)
     firstlist=advanced_solver(coeficients[:cut], thing[0]*math.gcd(*coeficients[:cut]))
     secondlist=advanced_solver(coeficients[cut:], thing[1]*math.gcd(*coeficients[cut:]))
@@ -84,3 +84,6 @@ def brute_force_mod(coefficients,total):
         if sum([attempt[j]*coefficients[j]for j in range(0,len(coefficients))])==total:
             solution_list.append(attempt)   
     return solution_list
+
+
+print(advanced_solver([5,12,17],34))
