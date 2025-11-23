@@ -50,7 +50,7 @@ def advanced_solver(coeficients,total):
     thing=solver([math.gcd(*coeficients[:cut]),math.gcd(*coeficients[cut:])],total)
     firstlist=advanced_solver(coeficients[:cut], thing[0]*math.gcd(*coeficients[:cut]))
     secondlist=advanced_solver(coeficients[cut:], thing[1]*math.gcd(*coeficients[cut:]))
-    return (firstlist,secondlist)
+    return (firstlist,*secondlist)
 
 def slosher(coefficients,solution,total):#this function moves between integer solutions
     if sum([coefficients[i]*coefficients[i]  for i in range(0,len(coefficients))])!=total:
@@ -85,5 +85,3 @@ def brute_force_mod(coefficients,total):
             solution_list.append(attempt)   
     return solution_list
 
-
-print(advanced_solver([5,12,17],34))
